@@ -1,0 +1,94 @@
+[
+  {
+    "name": "shelf: science fiction",
+    "books": [
+      {
+        "title": "Diuna",
+        "isbn": "978-3-598-21500-1",
+        "authors": {
+          "firstName":"Frank",
+          "lastName":"Herbert"
+        }
+      },
+      {
+        "title": "Frankenstein",
+        "isbn": "378-3-598-21502-5",
+        "authors": {
+          "firstName":"Mary",
+          "lastName":"Shelley"
+        }
+      },
+      {
+        "title": "Solaris",
+        "isbn": "168-3-518-21502-2",
+        "authors": {
+          "firstName":"Stanislaw",
+          "lastName":"Lem"
+        }
+      }
+    ]
+  },
+  {
+    "name": "shelf: thriller",
+    "books": [
+      {
+        "title": "Hidden Bodies",
+        "isbn": "111-3-598-21500-1",
+        "authors": {
+          "firstName":"Caroline",
+          "lastName":"Kepnes"
+        }
+      },
+      {
+        "title": "Gone Girl",
+        "isbn": "128-6-598-21502-5",
+        "authors": {
+          "firstName":"Gillian",
+          "lastName":"Flyyn"
+        }
+      }
+    ]
+  },
+  {
+    "name": "shelf: classical",
+    "books": [
+      {
+        "title": "Moby Dick",
+        "isbn": "978-3-598-21505-6",
+        "authors": {
+          "firstName":"Herman",
+          "lastName":"Melville"
+        }
+      },
+      {
+        "title": "War and Peace",
+        "isbn": "978-3-598-21503-2",
+        "authors": {
+          "firstName":"Leo",
+          "lastName":"Tolstoy"
+        }
+      }
+    ]
+  },
+  {
+    "name": "shelf: fantasy",
+    "books": [
+      {
+        "title": "Game Of Thrones",
+        "isbn": "298-3-598-10005-8",
+        "authors": {
+          "firstName":"JRR ",
+          "lastName":"Martin"
+        }
+      },
+      {
+        "title": "Red Queen",
+        "isbn": "908-3-5901-28103-2",
+        "authors": {
+          "firstName":"Victoria",
+          "lastName":"Aveyard"
+        }
+      }
+    ]
+  }
+]

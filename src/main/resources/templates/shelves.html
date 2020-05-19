@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application</title>
+</head>
+<body>
+<h1>List of Shelves</h1>
+<table>
+    <tr>
+        <th>name</th>
+        <th>Book List</th>
+    </tr>
+    <tr th:each="shelf, selfStat : ${shelves}">
+        <td th:text="${selfStat.index + 1}">1</td>
+        <td th:text="${shelf.name}">fantasy</td>
+        <td> <a href="/books">available books</a></td>
+    </tr>
+</table>
+</body>
+</html>
