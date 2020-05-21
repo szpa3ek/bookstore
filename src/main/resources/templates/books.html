@@ -6,15 +6,35 @@
 </head>
 <body>
 <h1>List of Books</h1>
+<!--<table>
+    <thead>
+    <tr>
+        <th> Title </th>
+        <th> Author </th>
+    </tr>
+    </thead>
+    <tbody>
+    &lt;!&ndash;<tr th:if="${books.empty}">
+        <td colspan="2"> No Books Available </td>
+    </tr>&ndash;&gt;
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}">Title</td>
+        &lt;!&ndash;<td><span th:text="${book.title}"> Title </span></td>
+        <td><span th:text="${book.isbn}"> Isbn </span></td>&ndash;&gt;
+    </tr>
+    </tbody>
+</table>-->
+
 <table>
     <tr>
         <th>name</th>
         <th>Book List</th>
     </tr>
-    <tr th:each="book : ${shelf.books}">
-    <span th:text="${book.title}">Java</span>
-    <span th:text="${book.isbn}">1234567890123</span>
-
+    <tr th:each="book, bookStat : ${books}">
+        <td th:text="${bookStat.index + 1}">1</td>
+        <!--<td th:text="${book.title}">fantasy</td>
+        <td th:text="${book.isbn}">fantasy</td>-->
+        <td> <a href="/authors">available books</a></td>
     </tr>
 </table>
 </body>
