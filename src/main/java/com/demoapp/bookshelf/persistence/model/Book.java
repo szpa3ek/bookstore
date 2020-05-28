@@ -1,19 +1,53 @@
 package com.demoapp.bookshelf.persistence.model;
 
-import com.demoapp.bookshelf.model.Person;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
-//@Entity
+@Entity
+@Table
 public class Book implements Serializable {
-  /*  @Column
-    private Person authors;
-    @Column
-    private String title;
-    @Column
     @Id
-    private String isbn;*/
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String title;
+    private String isbn;
+    @OneToOne
+    private Person person;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Shelf shelf;
+
+    public Book() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }

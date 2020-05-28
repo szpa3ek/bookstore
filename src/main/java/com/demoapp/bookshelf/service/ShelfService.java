@@ -1,29 +1,45 @@
 package com.demoapp.bookshelf.service;
 
 import com.demoapp.bookshelf.model.Shelf;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Slf4j
+@Transactional
 public class ShelfService {
 
-    public List<Shelf> getBookShelves() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(Objects.requireNonNull(getClass().getClassLoader()
-                            .getResourceAsStream("getBookShelves.json")),
-                    new TypeReference<>() {
-                    });
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
-        return null;
+    @PersistenceContext
+    private EntityManager em;
+
+    public List<Shelf> createListOfShelves(String name){
+        Shelf shelf = new Shelf();
+        shelf.setName(name);
+        em.persist(shelf);
+        return Collections.singletonList(shelf);
+    }
+
+    public List<Shelf> listAll() {
+        Shelf shelf1 =new Shelf();
+        shelf1.setName("THRILLER");
+        Shelf shelf2 = new Shelf();
+        shelf2.setName("SCIENCE FICTION");
+        Shelf shelf3 =new Shelf();
+        shelf3.setName("FANTASY");
+        // em.persist(shelves);
+        return Arrays.asList(shelf1,shelf2,shelf3);
+    }
+
+    public Shelf updateShelfName(Shelf shelf) {
+        Shelf shelfToBeUpdated = em.merge(shelf);
+        shelfToBeUpdated.setName(shelfToBeUpdated.getName());
+        return shelf;
     }
 }

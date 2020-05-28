@@ -9,11 +9,10 @@
 
 <table>
     <tr>
-        <th>name</th>
-        <th>Book List</th>
+        <th>SHELF NAME</th>
+        <th>BOOKS</th>
     </tr>
     <tr th:each="shelf, selfStat : ${shelves}">
-        <td th:text="${selfStat.index + 1}">1</td>
         <td th:text="${shelf.name}">fantasy</td>
         <td> <a href="/books">available books</a></td>
     </tr>

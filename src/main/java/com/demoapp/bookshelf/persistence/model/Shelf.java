@@ -1,18 +1,22 @@
-package com.demoapp.bookshelf.model;
+package com.demoapp.bookshelf.persistence.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Shelf {
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long shelfId;
     private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf")
     private List<Book> books;
 
     public Shelf() {
     }
 
-    public Shelf(Long shelfId, String name) {
-        this.shelfId = shelfId;
+    public Shelf(List<Book> books, String name) {
+        this.books = books;
         this.name = name;
     }
 

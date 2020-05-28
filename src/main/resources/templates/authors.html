@@ -5,12 +5,18 @@
     <title>Spring Boot Thymeleaf Application</title>
 </head>
 <body>
-<h1>List of Books</h1>
+<h1>AUTHORS</h1>
+
 <table>
     <tr>
-        <th>name</th>
-        <th>Author</th>
+        <th>FIRST NAME</th>
+        <th>LAST NAME</th>
+    </tr>
+    <tr th:each="person, selfStat : ${authors}">
+        <td th:text="${person.firstName}">fantasy</td>
+        <td th:text="${person.lastName}">fantasy</td>
     </tr>
 </table>
+
 </body>
 </html>
