@@ -3,6 +3,7 @@ package com.demoapp.bookshelf.persistence.model;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(query = "select p from Person p", name = "query_find_all_authors")
 public class Person {
 
     @Id
@@ -10,7 +11,7 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
-    @OneToOne
+    @ManyToOne
     private Book book;
 
     public Person() {

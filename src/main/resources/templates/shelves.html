@@ -12,7 +12,7 @@
         <th>SHELF NAME</th>
         <th>BOOKS</th>
     </tr>
-    <tr th:each="shelf, selfStat : ${shelves}">
+    <tr th:each="shelf: ${shelves}">
         <td th:text="${shelf.name}">fantasy</td>
         <td> <a href="/books">available books</a></td>
     </tr>

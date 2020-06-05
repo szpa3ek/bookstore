@@ -1,30 +1,28 @@
 package com.demoapp.bookshelf.controller;
 
-import com.demoapp.bookshelf.model.Book;
-import com.demoapp.bookshelf.repository.BooksRepository;
+import com.demoapp.bookshelf.persistence.model.Person;
+import com.demoapp.bookshelf.persistence.model.Shelf;
 import com.demoapp.bookshelf.service.BookService;
+import com.demoapp.bookshelf.service.PersonService;
 import com.demoapp.bookshelf.service.ShelfService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class ShelfController {
 
     private final ShelfService shelfService;
     private final BookService bookService;
+    private final PersonService personService;
 
-    /*@Autowired
-    BooksRepository booksRepository;*/
-
-    @Autowired
-    public ShelfController(ShelfService shelfService, BookService bookService) {
+    public ShelfController(ShelfService shelfService, BookService bookService, PersonService personService) {
         this.shelfService = shelfService;
         this.bookService = bookService;
+        this.personService = personService;
     }
 
     @GetMapping("shelves")
@@ -33,74 +31,36 @@ public class ShelfController {
         return "shelves";
     }
 
-    /*@GetMapping("books")
-    public String getListOfBooks(Model model) {
-        model.addAttribute("books", bookService.listAll());
-        model.addAttribute("booksSubmitted", new Book());
-        return "books";
-    }*/
-
-    @GetMapping(value = "books")
-    public ModelAndView showBooks() {
-        return new ModelAndView("books", "book", new Book());
+    @PostMapping (value = "/saveShelf")
+    public String saveShelf(@ModelAttribute("shelf") Shelf shelf, ModelMap model) {
+        model.addAttribute("name", shelf.getName());
+        return "shelf";
     }
 
-    @PostMapping (value = "books")
-    public String submitBook(@ModelAttribute("book") Book book, BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "error";
-        }
-        model.addAttribute("title", book.getTitle());
-        model.addAttribute("isbn", book.getIsbn());
-        model.addAttribute("authors", book.getAuthors());
-        return "books";
+    @GetMapping(value = "/books")
+    List showAll(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        model.addAttribute("person", new Person());
+        return bookService.findAll();
     }
 
-  /*  @PostMapping("books")
-    public String bookSubmit(@ModelAttribute("booksSubmitted") Book book) {
-        return "books";
-    }*/
-
-    @GetMapping("authors")
-    public String getAuthors(Model model) {
-        model.addAttribute("authors", bookService.listAll().get(0).getAuthors());
-        return "authors";
+    @PostMapping(value = "/books")
+    String newBook(String title, String isbn, String firstName, String lastName) {
+        Person person = new Person();
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+        bookService.insert(title, isbn, person);
+        return "redirect:/books";
     }
 
-
-  /*  @PostMapping("/books")
-    public Book createNote(@RequestBody Book book) {
-        return bookService.createBook(book);
+    @GetMapping(value = "/authors")
+    List showAllAuthors(Model model) {
+        model.addAttribute("authors", personService.findAll());
+        return personService.findAll();
     }
 
-    @PostMapping(value="book/create")
-    public String createBook(Book book, Model model) {
-        model.addAttribute("book", bookService.createBook(book));
-        ArrayList<Book> books = new ArrayList<>();
-        books.add(new Book());
-        model.addAttribute("books", books);
-        return "newBookForm";
-    }*/
-
-/*    @GetMapping(value="/booklist")
-    public @ResponseBody
-    List<Book> bookListRest() {
-        return (List<Book>) .findAll();
-    }*/
-
-/*    @PutMapping("books")
-    public String createBook(Model model){
-        model.addAttribute("book",new Book());
-        return "book";
-    }*/
-    /*public String save(Book book) {
-        repository.save(book);
-        return "redirect:books";
-    }*/
-
- /*   @GetMapping("books")
-    public String getListOfBooks(Model model) {
-        model.addAttribute("books", bookService.createBook());
-        return "books";
-    }*/
+    @PostMapping(value = "/authors")
+    Person newPerson(String firstName, String lastName) {
+        return personService.addPerson(firstName, lastName);
+    }
 }
