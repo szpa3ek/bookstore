@@ -2,19 +2,22 @@ package com.demoapp.bookshelf.persistence.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table
-@NamedQuery(query = "select b from Book b", name = "query_find_all_books")
+@NamedQueries({
+        @NamedQuery(query = "select b from Book b", name = "query_find_all_books"),
+        @NamedQuery(query = "select 1 from Book where exists (select 1 from Book b)",name = "check_if_not_empty")})
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String isbn;
-    @ManyToOne (cascade = {CascadeType.ALL})
-    private Person person;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToMany (cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    private List<Person> person;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Shelf shelf;
 
     public Book() {
@@ -49,11 +52,11 @@ public class Book implements Serializable {
         this.isbn = isbn;
     }
 
-    public Person getPerson() {
+    public List<Person> getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(List<Person> person) {
         this.person = person;
     }
 }

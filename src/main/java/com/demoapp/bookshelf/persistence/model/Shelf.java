@@ -9,7 +9,7 @@ public class Shelf {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long shelfId;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf", fetch = FetchType.LAZY)
     private List<Book> books;
 
     public Shelf() {

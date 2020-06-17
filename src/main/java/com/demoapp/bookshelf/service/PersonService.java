@@ -31,4 +31,11 @@ public class PersonService {
         Query query = em.createNamedQuery("query_find_all_authors", Person.class);
         return query.getResultList();
     }
+
+    public Optional<Person> findById(Long id) {
+        Person person = em.createQuery("SELECT p FROM Person p WHERE p.id = :id", Person.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        return person != null ? Optional.of(person) : Optional.empty();
+    }
 }

@@ -1,6 +1,7 @@
 package com.demoapp.bookshelf.persistence.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NamedQuery(query = "select p from Person p", name = "query_find_all_authors")
@@ -11,10 +12,18 @@ public class Person {
     private Long id;
     private String firstName;
     private String lastName;
-    @ManyToOne
-    private Book book;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Book> book;
 
     public Person() {
+    }
+
+    public List<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(List<Book> book) {
+        this.book = book;
     }
 
     public Long getId() {
