@@ -6,16 +6,14 @@ import java.util.List;
 
 @Entity
 @Table
-@NamedQueries({
-        @NamedQuery(query = "select b from Book b", name = "query_find_all_books"),
-        @NamedQuery(query = "select 1 from Book where exists (select 1 from Book b)",name = "check_if_not_empty")})
+@NamedQuery(query = "select b from Book b", name = "query_find_all_books")
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
     private String isbn;
-    @ManyToMany (cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Person> person;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Shelf shelf;

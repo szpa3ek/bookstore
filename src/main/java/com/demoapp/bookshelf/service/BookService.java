@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 
@@ -31,6 +32,7 @@ public class BookService {
     public Book find(long id) {
         return entityManager.find(Book.class, id);
     }
+
     public Optional<Book> findByTitle(String title) {
         Book book = entityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title", Book.class)
                 .setParameter("title", title)
@@ -39,11 +41,7 @@ public class BookService {
     }
 
     public List<Book> findAll() {
-        Query emptyCheckQuery = entityManager.createNamedQuery("check_if_not_empty", Integer.class);
-        if (emptyCheckQuery.getResultList().isEmpty()){
-            return new ArrayList<>();
-        }
-        Query query = entityManager.createNamedQuery("query_find_all_books", Book.class);
-        return query.getResultList();
+        TypedQuery<Book> query_find_all_books = entityManager.createNamedQuery("query_find_all_books", Book.class);
+        return query_find_all_books.getResultList();
     }
 }

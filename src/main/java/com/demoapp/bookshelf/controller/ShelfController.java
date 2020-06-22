@@ -10,8 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 public class ShelfController {
 
@@ -31,17 +29,17 @@ public class ShelfController {
         return "shelves";
     }
 
-    @PostMapping (value = "/saveShelf")
+    @PostMapping(value = "/saveShelf")
     public String saveShelf(@ModelAttribute("shelf") Shelf shelf, ModelMap model) {
         model.addAttribute("name", shelf.getName());
         return "shelf";
     }
 
     @GetMapping(value = "/books")
-    List showAll(Model model) {
+    String showAll(Model model) {
         model.addAttribute("books", bookService.findAll());
         model.addAttribute("person", new Person());
-        return bookService.findAll();
+        return "books";
     }
 
     @PostMapping(value = "/books")
@@ -54,9 +52,9 @@ public class ShelfController {
     }
 
     @GetMapping(value = "/authors")
-    List showAllAuthors(Model model) {
+    String showAllAuthors(Model model) {
         model.addAttribute("authors", personService.findAll());
-        return personService.findAll();
+        return "authors";
     }
 
     @PostMapping(value = "/authors")

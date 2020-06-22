@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -19,7 +18,7 @@ public class PersonService {
     @PersistenceContext
     private EntityManager em;
 
-    public Person addPerson(String firstName, String lastName){
+    public Person addPerson(String firstName, String lastName) {
         Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastName);
@@ -32,10 +31,9 @@ public class PersonService {
         return query.getResultList();
     }
 
-    public Optional<Person> findById(Long id) {
-        Person person = em.createQuery("SELECT p FROM Person p WHERE p.id = :id", Person.class)
+    public Person findById(Long id) {
+        return em.createQuery("SELECT p FROM Person p WHERE p.id = :id", Person.class)
                 .setParameter("id", id)
                 .getSingleResult();
-        return person != null ? Optional.of(person) : Optional.empty();
     }
 }
