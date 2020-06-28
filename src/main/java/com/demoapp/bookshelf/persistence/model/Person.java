@@ -14,6 +14,8 @@ public class Person {
     private String lastName;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Book> book;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<CD> cd;
 
     public Person() {
     }
@@ -48,5 +50,13 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<CD> getCd() {
+        return cd;
+    }
+
+    public void setCd(List<CD> cd) {
+        this.cd = cd;
     }
 }

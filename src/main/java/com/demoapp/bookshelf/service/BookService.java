@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.*;
 
@@ -24,7 +23,7 @@ public class BookService {
         Book book = new Book();
         book.setTitle(title);
         book.setIsbn(isbn);
-        book.setPerson(List.of(person));
+        book.setAuthors(List.of(person));
         entityManager.persist(book);
         return book;
     }

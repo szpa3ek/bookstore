@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application</title>
+</head>
+<body>
+
+<div>
+    <h1>ADD NEW CD</h1>
+
+    <form th:action="@{/cd}" method="post">
+        <label>Title</label>
+        <input type="text" th:value="${title}" name="title"/>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <label>TRACKS</label>
+        <input type="text" th:value="${tracks}" name="tracks"/>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <label> Author First Name</label>
+        <input type="text" th:value="${firstName}" name="firstName"/>
+        <label>Author Last Name</label>
+        <input type="text" th:value="${lastName}" name="lastName"/>
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <button type="submit">Save</button>
+    </form>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>CD</th>
+            <th>TRACKS</th>
+            <th>AUTHORS</th>
+
+        </tr>
+        <tr th:each="cd:${cd}">
+            <td th:text="${cd.id}">id</td>
+            <td th:text="${cd.title}">title</td>
+            <td th:text="${cd.tracks}">tracks</td>
+            <td> <a href="/authors">authors</a></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
