@@ -1,12 +1,11 @@
 package com.demoapp.bookshelf.service;
 
 import com.demoapp.bookshelf.persistence.model.Shelf;
+import com.demoapp.bookshelf.repository.ShelfRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -15,11 +14,10 @@ import java.util.List;
 @Transactional
 public class ShelfService {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    ShelfRepository repository;
 
     public List<Shelf> findAll() {
-        TypedQuery<Shelf> query_find_all_shelves = em.createNamedQuery("query_find_all_shelves", Shelf.class);
-        return query_find_all_shelves.getResultList();
+        return repository.findAll();
     }
 }

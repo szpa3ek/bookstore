@@ -2,7 +2,9 @@ package com.demoapp.bookshelf.service;
 
 import com.demoapp.bookshelf.persistence.model.Book;
 import com.demoapp.bookshelf.persistence.model.Person;
+import com.demoapp.bookshelf.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,31 +18,28 @@ import java.util.*;
 @Slf4j
 @Transactional
 public class BookService {
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    @Autowired
+    BookRepository bookRepository;
 
     public Book insert(String title, String isbn, Person person) {
         Book book = new Book();
         book.setTitle(title);
         book.setIsbn(isbn);
         book.setAuthors(List.of(person));
-        entityManager.persist(book);
+        bookRepository.save(book);
         return book;
     }
 
     public Book find(long id) {
-        return entityManager.find(Book.class, id);
+        return bookRepository.findById(id).get();
     }
 
     public Optional<Book> findByTitle(String title) {
-        Book book = entityManager.createQuery("SELECT b FROM Book b WHERE b.title = :title", Book.class)
-                .setParameter("title", title)
-                .getSingleResult();
-        return book != null ? Optional.of(book) : Optional.empty();
+        return bookRepository.findByTitle(title);
     }
 
     public List<Book> findAll() {
-        TypedQuery<Book> query_find_all_books = entityManager.createNamedQuery("query_find_all_books", Book.class);
-        return query_find_all_books.getResultList();
+        return bookRepository.findAll();
     }
 }

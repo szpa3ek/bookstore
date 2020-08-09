@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NamedQuery(query = "select s from Shelf s", name = "query_find_all_shelves")
 public class Shelf {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "shelfid")
     private Long shelfId;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf", fetch = FetchType.LAZY)

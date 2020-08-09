@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NamedQuery(query = "select p from Person p", name = "query_find_all_authors")
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Book> book;

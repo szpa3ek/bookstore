@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NamedQuery(query = "select c from CD c", name = "query_find_all_cds")
 public class CD extends Item {
 
     @ElementCollection

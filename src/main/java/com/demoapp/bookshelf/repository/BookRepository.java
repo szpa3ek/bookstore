@@ -1,0 +1,10 @@
+package com.demoapp.bookshelf.repository;
+
+import com.demoapp.bookshelf.persistence.model.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface BookRepository extends JpaRepository<Book,Long> {
+    Optional<Book> findByTitle(String title);
+}

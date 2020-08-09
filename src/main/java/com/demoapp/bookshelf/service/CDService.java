@@ -2,7 +2,9 @@ package com.demoapp.bookshelf.service;
 
 import com.demoapp.bookshelf.persistence.model.CD;
 import com.demoapp.bookshelf.persistence.model.Person;
+import com.demoapp.bookshelf.repository.CDRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,20 +17,19 @@ import java.util.List;
 @Slf4j
 @Transactional
 public class CDService {
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    CDRepository repository;
 
     public CD insert(String title, List<String> tracks, Person person) {
         CD cd = new CD();
         cd.setTitle(title);
         cd.setTracks(tracks);
         cd.setAuthors(List.of(person));
-        entityManager.persist(cd);
+        repository.save(cd);
         return cd;
     }
 
     public List<CD> findAll() {
-        TypedQuery<CD> query_find_all_cds = entityManager.createNamedQuery("query_find_all_cds", CD.class);
-        return query_find_all_cds.getResultList();
+        return repository.findAll();
     }
 }
