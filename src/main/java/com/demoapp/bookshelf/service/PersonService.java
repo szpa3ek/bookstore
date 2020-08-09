@@ -1,7 +1,9 @@
 package com.demoapp.bookshelf.service;
 
 import com.demoapp.bookshelf.persistence.model.Person;
+import com.demoapp.bookshelf.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -15,25 +17,22 @@ import java.util.List;
 @Transactional
 public class PersonService {
 
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    PersonRepository repository;
 
     public Person addPerson(String firstName, String lastName) {
         Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastName);
-        em.persist(person);
+        repository.save(person);
         return person;
     }
 
     public List findAll() {
-        Query query = em.createNamedQuery("query_find_all_authors", Person.class);
-        return query.getResultList();
+        return repository.findAll();
     }
 
     public Person findById(Long id) {
-        return em.createQuery("SELECT p FROM Person p WHERE p.id = :id", Person.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        return repository.findById(id).get();
     }
 }

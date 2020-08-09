@@ -14,7 +14,7 @@
     </tr>
     <tr th:each="shelf: ${shelves}">
         <td th:text="${shelf.name}">fantasy</td>
-        <td> <a href="/books">available books</a></td>
+        <td> <a th:href="@{'/' + ${shelf.name}}">view</a></td>
     </tr>
 </table>
 

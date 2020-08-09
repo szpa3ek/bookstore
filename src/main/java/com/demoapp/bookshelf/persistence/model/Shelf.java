@@ -6,11 +6,14 @@ import java.util.List;
 @Entity
 public class Shelf {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "shelfid")
     private Long shelfId;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf", fetch = FetchType.LAZY)
     private List<Book> books;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "shelf", fetch = FetchType.LAZY)
+    private List<CD> cds;
 
     public Shelf() {
     }
@@ -42,5 +45,13 @@ public class Shelf {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<CD> getCds() {
+        return cds;
+    }
+
+    public void setCds(List<CD> cds) {
+        this.cds = cds;
     }
 }
