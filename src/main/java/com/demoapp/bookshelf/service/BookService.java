@@ -28,6 +28,7 @@ public class BookService {
         book.setIsbn(isbn);
         book.setAuthors(List.of(person));
         bookRepository.save(book);
+        System.out.println("inserted book with title:"+ book.getTitle());
         return book;
     }
 
