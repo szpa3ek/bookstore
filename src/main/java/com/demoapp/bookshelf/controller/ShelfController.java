@@ -40,22 +40,6 @@ public class ShelfController {
         return "shelf";
     }
 
-    @GetMapping(value = "/books")
-    String showAllBooks(Model model) {
-        model.addAttribute("books", bookService.findAll());
-        model.addAttribute("person", new Person());
-        return "books";
-    }
-
-    @PostMapping(value = "/books")
-    String newBook(String title, String isbn, String firstName, String lastName) {
-        Person person = new Person();
-        person.setFirstName(firstName);
-        person.setLastName(lastName);
-        bookService.insert(title, isbn, person);
-        return "redirect:/books";
-    }
-
     @PostMapping(value = "/cd")
     String newCD(String title, ArrayList<String> tracks, String firstName, String lastName) {
         Person person = new Person();
